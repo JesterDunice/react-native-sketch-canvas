@@ -32,6 +32,7 @@ class SketchCanvas extends React.Component {
     onStrokeChanged: PropTypes.func,
     onStrokeEnd: PropTypes.func,
     onSketchSaved: PropTypes.func,
+    onLayout: PropTypes.func,
     user: PropTypes.string,
 
     touchEnabled: PropTypes.bool,
@@ -63,6 +64,7 @@ class SketchCanvas extends React.Component {
     onStrokeChanged: () => { },
     onStrokeEnd: () => { },
     onSketchSaved: () => { },
+    onLayout: () => { },
     user: null,
 
     touchEnabled: true,
@@ -232,6 +234,7 @@ class SketchCanvas extends React.Component {
         }}
         style={this.props.style}
         onLayout={e => {
+          this.props.onLayout(e);
           this._size = { width: e.nativeEvent.layout.width, height: e.nativeEvent.layout.height }
           this._initialized = true
           this._pathsToProcess.length > 0 && this._pathsToProcess.forEach(p => this.addPath(p))

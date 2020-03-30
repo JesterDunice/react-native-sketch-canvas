@@ -53,6 +53,7 @@ class SketchCanvas extends React.Component {
 
     permissionDialogTitle: PropTypes.string,
     permissionDialogMessage: PropTypes.string,
+    disablePermissions: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -74,6 +75,7 @@ class SketchCanvas extends React.Component {
 
     permissionDialogTitle: '',
     permissionDialogMessage: '',
+    disablePermissions: false,
   };
 
   state = {
@@ -220,6 +222,9 @@ class SketchCanvas extends React.Component {
   }
 
   async componentDidMount() {
+    const { disablePermissions } = this.props;
+    if (disablePermissions) return;
+
     const isStoragePermissionAuthorized = await requestPermissions(
       this.props.permissionDialogTitle,
       this.props.permissionDialogMessage,
